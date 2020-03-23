@@ -88,7 +88,6 @@
     {
    	  "target_name": "liblibjam",
 	  	"type": "static_library",
-      "dependencies": [ "deps/libtask/binding.gyp:liblibtask" ],
       "sources": [
       	"<!@(ls -1 lib/jamlib/*.c)"
       ],
