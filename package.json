@@ -1,0 +1,60 @@
+{
+    "name": "jamscriptID-20",
+    "description": "Compiler for the JAMScript language",
+    "version": "1.0.0",
+    "license": "GPL",
+    "keywords": [
+        "c",
+        "javascript",
+        "cloud-computing",
+        "iot-framework",
+        "iot",
+        "programming-language",
+        "iot-middleware",
+        "fog-computing"
+    ],
+    "homepage": "https://citelab.github.io/JAMScript/",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/citelab/JAMScriptID-20.git"
+    },
+    "bugs": "https://github.com/citelab/JAMScript/issues",
+    "scripts": {
+        "preinstall": "scripts/install/preinstall.sh",
+        "install": "node-gyp rebuild",
+        "postinstall": "scripts/install/postinstall.sh",
+        "postversion": "git push && git push --tags && npm publish",
+        "prepublishOnly": "scripts/install/prepublishOnly.sh",
+        "link": "scripts/install/link.sh"
+    },
+    "bin": {
+        "jamc": "./index.js"
+    },
+    "dependencies": {
+        "jszip": "^3.1.5",
+        "node-gyp": "^5.0.1",
+        "ohm-js": "^0.13.1",
+        "tiny-worker": "^2.3.0"
+    },
+    "engines": {
+        "node": ">= 7.0.0",
+        "npm": ">= 6.0.0"
+    },
+    "os": [
+        "darwin",
+        "linux"
+    ],
+    "gypfile": true,
+    "preferGlobal": true,
+    "files": [
+        "deps",
+        "lib/jamlib",
+        "lib/ohm",
+        "scripts/install/preinstall.sh",
+        "scripts/install/postinstall.sh",
+        "scripts/install/global-fix.sh",
+        "tools",
+        "index.js",
+        "binding.gyp"
+    ]
+}

@@ -1,0 +1,129 @@
+JAMJS <: ES6 {
+    Declaration     += Jconditional
+                    | Jdata_decl
+                    | Activity_def
+                    | Jview_decl
+
+    jdata_type      = broadcaster
+                    | logger
+                    | shuffler
+
+    C_type          = "struct" identifier "{" Struct_entry* "}"     -- struct
+                    | "char" "*"                                    -- pointer
+                    | "char"
+                    | "double"
+                    | "int"
+                    | "float"
+
+    Struct_entry    = C_type identifier ";"
+
+    Jdata_spec      = C_type identifier as jdata_type "(" ("fog"|"cloud") ")" ";"   -- specified
+                    | C_type identifier as jdata_type ";"                           -- default
+                    | Flow ";"                                                      -- flow
+
+    Flow            = identifier as flow with identifier of identifier              -- flow
+                    | identifier as outflow of identifier                           -- outflow
+                    | identifier as inflow                                          -- inflow
+
+
+    Jdata_decl (a jdata declaration) = jdata "{" Jdata_spec* "}"
+
+    Jview_spec      = beat ":" identifier ";"                       -- beat
+                    | Jview_page
+
+    Jview_page      = identifier as page "{" Page_elem+ "}"
+
+    Page_elem       = Display_elem
+                    | Control_elem
+                    | Page_name
+
+    Display_elem    = identifier is display "{" Disp_spec+ "}"
+
+    Control_elem    = identifier is controller "{" Ctrl_spec+ "}"
+
+    Page_name       = name ":" identifier ";"
+
+    Disp_spec       = type ":" display_type ";"
+                    | title ":" stringLiteral ";"
+                    | options ":" stringLiteral ";"
+                    | source ":" identifier ";"
+                    | refresh ":" decimalIntegerLiteral ";"
+
+    display_type    = graph | scatter | stackedgraph
+
+    Ctrl_spec       = type ":" control_type ";"
+                    | title ":" stringLiteral ";"
+                    | options ":" stringLiteral ";"
+                    | sink ":" identifier ";"
+
+    control_type    = slider | terminal | button
+
+
+    Jview_decl (a jview declaration) = jview "{" Jview_spec* "}"
+
+    Jconditional (a jconditional declaration) = jcond identifier? "{" Jcond_entry* "}"
+
+    Jcond_entry     = identifier ":" NonemptyListOf<Jcond_rule, jcond_joiner> ";"
+
+	Jcond_rule      = MemberExpr jcond_op MemberExpr ","? identifier?
+
+    MemberExpr      = identifier "(" MemberExpr ")"                 -- funcExpr
+                    | MemberExpr "." identifier                     -- propRefExp
+                    | identifier
+                    | literal
+
+    jcond_op        = "==" | ">=" | ">" | "<=" | "<" | "!="
+
+    jcond_joiner    = "&&" | "||"
+
+    Async_activity  = jasync Jcond_specifier? FunctionDeclaration
+
+    Sync_activity   = jsync Jcond_specifier? FunctionDeclaration
+
+    Jcond_specifier = "{" Jcond_expr "}"
+
+    Jcond_expr      = "(" Jcond_expr ")"                            -- paran
+                    | "!" Jcond_expr                                -- not
+                    | Jcond_expr jcond_expr_op Jcond_expr           -- bin_op
+                    | identifier "." identifier                     -- namespace
+                    | identifier                                    -- id
+
+    jcond_expr_op   = "&&" | "||"
+
+    Activity_def (a activity definition)  = Sync_activity
+                                        | Async_activity
+
+    as = "as" ~identifierPart
+    beat = "beat" ~identifierPart
+    broadcaster = "broadcaster" ~identifierPart
+    button = "button" ~identifierPart
+    controller = "controller" ~identifierPart
+    display = "display" ~identifierPart
+    flow = "flow" ~identifierPart
+    graph = "graph" ~identifierPart
+    is = "is" ~identifierPart
+    inflow = "inflow" ~identifierPart
+    jamtask = "jamtask" ~identifierPart
+    jasync = "jasync" ~identifierPart
+    jcond = "jcond" ~identifierPart
+    jdata = "jdata" ~identifierPart
+    jview = "jview" ~identifierPart
+    jsync = "jsync" ~identifierPart
+    linegraph = "linegraph" ~identifierPart
+    logger = "logger" ~identifierPart
+    name = "name" ~identifierPart
+    of = "of" ~identifierPart
+    options = "options" ~identifierPart
+    outflow = "outflow" ~identifierPart
+    page = "page" ~identifierPart
+    refresh = "refresh" ~identifierPart
+    scatter = "scatter" ~identifierPart
+    sink = "sink" ~identifierPart
+    slider = "slider" ~identifierPart
+    shuffler = "shuffler" ~identifierPart
+    source = "source" ~identifierPart
+    stackedgraph = "stackedgraph" ~identifierPart
+    terminal = "terminal" ~identifierPart
+    title = "title" ~identifierPart
+    type = "type" ~identifierPart
+}

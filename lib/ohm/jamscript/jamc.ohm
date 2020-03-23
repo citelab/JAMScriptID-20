@@ -1,0 +1,35 @@
+JAMC <: C {
+    Source         := External_decl+
+
+    Namespace_spec  = in id
+
+    Type_spec       += jamtask
+
+    Jcond_specifier = "{" Jcond_expr "}"
+
+    Jcond_expr      = "(" Jcond_expr ")"                            -- paran
+                    | "!" Jcond_expr                                -- not
+                    | Jcond_expr jcond_expr_op Jcond_expr           -- bin_op
+                    | id "." id                                     -- namespace
+                    | id                                            -- id
+
+    jcond_expr_op   = "&&" | "||"
+
+    Async_activity  = jasync Jcond_specifier? Declarator Namespace_spec? Compound_stmt
+
+    Sync_activity   = jsync Decl_specs Jcond_specifier? Declarator Namespace_spec? Compound_stmt
+
+    Activity_def    = Sync_activity
+                    | Async_activity
+
+    External_decl   := Activity_def
+                    | Prototype
+                    | Function_def
+                    | Decl
+                    | Preprocess_line
+
+    jasync = "jasync" ~identPart
+    jsync = "jsync" ~identPart
+    in = "in" ~identPart
+    jamtask = "jamtask" ~identPart
+}

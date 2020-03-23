@@ -1,0 +1,56 @@
+{
+    "int": {
+        "c_pattern": "%i",
+        "jamlib": "ival",
+        "js_type": "number",
+        "c_code": "i",
+        "js_code": "n",
+        "caster": "get_bcast_int",
+        "jbroadcast": "JBROADCAST_INT"
+    },
+    "float": {
+        "c_pattern": "%f",
+        "jamlib": "dval",
+        "js_type": "number",
+        "c_code": "f",
+        "js_code": "n",
+        "caster": "get_bcast_float",
+        "jbroadcast": "JBROADCAST_FLOAT"
+    },
+    "string": {
+        "c_pattern": "\\\"%s\\\"",
+        "jamlib": "sval",
+        "js_type": "string",
+        "c_code": "s",
+        "js_code": "s",
+        "caster": "",
+        "jbroadcast": "JBROADCAST_STRING"
+    },
+    "char*": {
+        "c_pattern": "\\\"%s\\\"",
+        "jamlib": "sval",
+        "js_type": "string",
+        "c_code": "s",
+        "js_code": "s",
+        "caster": "get_bcast_char",
+        "jbroadcast": "JBROADCAST_STRING"
+    },
+    "char": {
+        "c_pattern": "\\\"%s\\\"",
+        "jamlib": "sval",
+        "js_type": "string",
+        "c_code": "s",
+        "js_code": "s",
+        "caster": "",
+        "jbroadcast": "JBROADCAST_STRING"
+    },
+    "jamtask": {
+        "c_pattern": "\\\"%s\\\"",
+        "jamlib": "sval",
+        "js_type": "string",
+        "c_code": "s",
+        "js_code": "s",
+        "caster": null,
+        "jbroadcast": null
+    }
+}
